@@ -1,5 +1,5 @@
 {
-  "extends": ["eslint:recommended", "next", "react-app"],
+  "extends": ["eslint:recommended", "next/core-web-vitals", "react-app"],
   "plugins": ["prettier"],
   "rules": {
     "no-console": "warn",
