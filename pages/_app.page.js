@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import Head from "next/head";
 import { createTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
-import { SnackbarProvider } from "notistack";
 
 import "styles/reset.css";
 import themeConfig from "configs/theme";
@@ -19,21 +18,16 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>TaiwanGo</title>
-        <meta name="description" content="Taiwan travel information" />
+        <title>FE-Survey</title>
+        <meta
+          name="description"
+          content="2021 survey of  front-end engineers in Taiwan"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <SnackbarProvider
-          maxSnack={3}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-        >
-          <Component {...pageProps} />
-        </SnackbarProvider>
+        <Component {...pageProps} />
       </ThemeProvider>
     </>
   );
