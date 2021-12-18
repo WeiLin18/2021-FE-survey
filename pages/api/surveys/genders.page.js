@@ -8,14 +8,10 @@ handler.get(async (req, res) => {
   await db.connect();
   const groups = await Surveys.aggregate([
     {
-      $group: { _id: "$company.industry", count: { $sum: 1 } },
-    },
-    {
-      $sort: { count: -1 },
+      $group: { _id: "$gender", count: { $sum: 1 } },
     },
   ]);
   await db.disconnect();
-
   res.send(groups);
 });
 

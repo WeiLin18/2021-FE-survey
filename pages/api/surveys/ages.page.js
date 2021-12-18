@@ -1,6 +1,6 @@
 import nc from "next-connect";
-import Surveys from "../../../../models/Surveys";
-import db from "../../../../utils/db";
+import Surveys from "models/Surveys";
+import db from "utils/db";
 
 const handler = nc();
 
@@ -11,7 +11,7 @@ handler.get(async (req, res) => {
       $group: { _id: "$age", count: { $sum: 1 } },
     },
     {
-      $sort: { _id: 1 },
+      $sort: { count: 1 },
     },
   ]);
   await db.disconnect();
