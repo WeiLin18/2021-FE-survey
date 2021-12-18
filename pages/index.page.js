@@ -18,6 +18,7 @@ const HomePage = ({ data }) => {
         </Typography>
       </Box>
       <BaseSection {...data?.baseSection} />
+      <CareerSection {...data?.careerSection} />
     </Box>
   );
 };
@@ -53,6 +54,9 @@ export const getStaticProps = async () => {
             majorData,
             areaData,
             jobTenureData,
+          },
+          careerSection: {
+            workData,
           },
         },
       },

@@ -3,3 +3,11 @@ export const findTargetObject = (target, prop, list) => {
 };
 
 export const fetcher = async (url) => fetch(url).then((res) => res.json());
+
+export const getUnitYConfig = (unit) => ({
+  ticks: {
+    callback: function (value) {
+      return value + unit;
+    },
+  },
+});
