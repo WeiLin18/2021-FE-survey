@@ -1,7 +1,8 @@
 import nc from "next-connect";
 import Surveys from "models/Surveys";
 import db from "utils/db";
-import { INDUSTRY_LIST, SALARY_LIST } from "constants/survey";
+import { SALARY_LIST } from "constants/survey";
+import { getFormatIndustryGroup } from "utils/common";
 
 const handler = nc();
 
@@ -64,37 +65,8 @@ handler.get(async (req, res) => {
     },
   ]);
 
-  const _getFormatIndustryGroup = (list) => {
-    const industryList = INDUSTRY_LIST.map((str) => {
-      const obj = list.find((item) => item._id === str);
-      return (
-        obj || {
-          _id: str,
-          count: 0,
-        }
-      );
-    });
-
-    const __getOtherIndustryCount = () => {
-      let otherCount = 0;
-      list.forEach((item) => {
-        if (INDUSTRY_LIST.includes(item._id)) return;
-        otherCount += item.count;
-      });
-      return otherCount;
-    };
-
-    return [
-      ...industryList,
-      {
-        _id: "其他產業",
-        count: __getOtherIndustryCount(),
-      },
-    ];
-  };
-
   const _getIndustry = async (salaryValue, salaryCount) => {
-    if (salaryCount === 0) return _getFormatIndustryGroup([]);
+    if (salaryCount === 0) return getFormatIndustryGroup([]);
 
     const industryGroup = await Surveys.aggregate([
       {
@@ -118,7 +90,7 @@ handler.get(async (req, res) => {
       },
     ]);
 
-    return _getFormatIndustryGroup(industryGroup);
+    return getFormatIndustryGroup(industryGroup);
   };
 
   const _getSalaryGroupsWithIndustry = async (array) => {
@@ -147,7 +119,7 @@ handler.get(async (req, res) => {
   const hightSalaryItem = {
     _id: "120 萬以上",
     count: _getCount(hightSalaryGroup),
-    industry: _getFormatIndustryGroup(hightSalaryGroup),
+    industry: getFormatIndustryGroup(hightSalaryGroup),
   };
 
   let lowSalaryItem;
