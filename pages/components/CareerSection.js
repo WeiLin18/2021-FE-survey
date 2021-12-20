@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { Grid, Card, Typography, Box } from "@material-ui/core";
+import { Grid, Card, Typography, Box, Button } from "@material-ui/core";
 import useSWR from "swr";
 
 import { COLORS_LIST } from "constants/chart";
@@ -10,20 +10,36 @@ import StackBarChart from "components/StackBarChart";
 import PieChart from "components/PieChart";
 import DropDownButton from "components/DropDownButton";
 import { getUnitYConfig } from "utils/common";
+import { spacings } from "styles";
 
-const CareerSection = ({ workData, ...props }) => {
+const CareerSection = ({ workData, industryData, ...props }) => {
   return (
     <Grid container spacing={1} {...props}>
-      <Grid item xs={12}>
-        <Sub.SalaryInteractiveCard />
+      <Grid item md={4} sm={6} xs={12}>
+        <Card>
+          <Typography variant="h5">產業分布</Typography>
+          <Box sx={{ mt: 2 }}>
+            <Sub.IndustryDoughnut
+              industryChartData={industryData?.formatData}
+            />
+          </Box>
+        </Card>
       </Grid>
-      <Grid item md={6} sm={6} xs={12}>
+      <Grid item md={4} sm={6} xs={12}>
+        <Card style={{ height: 380 }}>
+          <Sub.IndustryList industryListData={industryData?.data} />
+        </Card>
+      </Grid>
+      <Grid item md={4} sm={6} xs={12}>
         <Card>
           <Typography variant="h5">辦公型態</Typography>
           <Box sx={{ mt: 2 }}>
             <Sub.WorkPie workData={workData} />
           </Box>
         </Card>
+      </Grid>
+      <Grid item xs={12}>
+        <Sub.SalaryInteractiveCard />
       </Grid>
     </Grid>
   );
@@ -47,6 +63,78 @@ const Sub = {
       ],
     };
     return <PieChart data={workData} config={config} />;
+  },
+  IndustryDoughnut: ({ industryChartData }) => {
+    const config = {
+      labels: industryChartData.map((v) => v._id),
+      datasets: [
+        {
+          label: "industry",
+          data: industryChartData.map((v) => v.count),
+          backgroundColor: COLORS_LIST,
+        },
+      ],
+    };
+    return <DoughnutChart data={industryChartData} config={config} />;
+  },
+  IndustryList: ({ industryListData }) => {
+    const [page, setPage] = useState(1);
+
+    const renderData = useCallback(
+      (sourceData) => {
+        if (!sourceData) return null;
+        const displayData = sourceData.slice((page - 1) * 10, page * 10);
+        return (
+          <>
+            {displayData.map((item) => (
+              <Typography variant="subtitle1" key={item?._id}>
+                Top {item?.rank}- {item?._id}
+              </Typography>
+            ))}
+          </>
+        );
+      },
+      [page]
+    );
+
+    const totalPage = useMemo(() => {
+      return Math.ceil(industryListData?.length / 10);
+    }, [industryListData.length]);
+
+    return (
+      <>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography variant="h5">產業排名</Typography>
+          <Box>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                setPage((prev) => prev - 1);
+              }}
+              disabled={page === 1}
+              className={spacings.mr_2}
+            >
+              上 10 筆
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                setPage((prev) => prev + 1);
+              }}
+              disabled={page === totalPage}
+            >
+              下 10 筆
+            </Button>
+          </Box>
+        </Box>
+        <Box sx={{ mt: 3 }}>{renderData(industryListData)}</Box>
+      </>
+    );
   },
   SalaryInteractiveCard: () => {
     const [ageRange, setAgeRange] = useState(ageList[0]);
