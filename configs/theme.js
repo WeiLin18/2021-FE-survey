@@ -1,6 +1,7 @@
 import {
   MuiPalette,
   bodyFontStyle,
+  MuiSpacing,
   card as MuiCard,
   chip as MuiChip,
   button as MuiButton,
@@ -9,6 +10,7 @@ import {
 
 const themeConfig = {
   palette: MuiPalette,
+  spacing: MuiSpacing,
   overrides: {
     "@global": {
       body: {
