@@ -16,6 +16,10 @@ const style = {
       border-radius: 16px;
       border: 1px solid ${colors.textDefault};
     }
+    &&&:hover {
+      background-color: rgba(0, 32, 74, 0.04);
+      box-shadow: none;
+    }
   `,
   buttonIcon: css`
     margin-left: auto;
