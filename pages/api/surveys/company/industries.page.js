@@ -16,7 +16,15 @@ handler.get(async (req, res) => {
   ]);
   await db.disconnect();
 
-  res.send(getFormatIndustryGroup(groups));
+  const groupWithRank = groups.map((item, index) => ({
+    ...item,
+    rank: index + 1,
+  }));
+
+  res.send({
+    data: groupWithRank,
+    formatData: getFormatIndustryGroup(groupWithRank),
+  });
 });
 
 export default handler;
