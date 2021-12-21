@@ -2,8 +2,8 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Menu, MenuItem } from "@material-ui/core";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
-import { css } from "@emotion/css";
-import clx from "classnames";
+import { css, cx } from "@emotion/css";
+import { colors } from "styles";
 
 const style = {
   button: css`
@@ -12,6 +12,12 @@ const style = {
       display: flex;
       justify-content: center;
       min-width: 100px;
+      border-radius: 16px;
+      border: 1px solid ${colors.textDefault};
+    }
+    &&&:hover {
+      background-color: rgba(0, 32, 74, 0.04);
+      box-shadow: none;
     }
   `,
   buttonIcon: css`
@@ -65,7 +71,7 @@ export const DropDownButton = ({
         onClick={handleClick}
         variant="contained"
         color="secondary"
-        className={clx(style.button, customClassName)}
+        className={cx(style.button, customClassName)}
         {...props}
       >
         {currentItem?.name || labelName}

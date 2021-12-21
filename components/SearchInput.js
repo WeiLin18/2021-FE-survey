@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { css } from "@emotion/css";
-import clx from "classnames";
+import { css, cx } from "@emotion/css";
 
 const style = {
   root: css`
@@ -36,7 +35,7 @@ const SearchInput = ({
         onValueChange(e.target.value);
       }}
       placeholder={placeholder}
-      className={clx(style.root, customClassName)}
+      className={cx(style.root, customClassName)}
       {...props}
     />
   );

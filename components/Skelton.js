@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { css, keyframes } from "@emotion/css";
-import clx from "classnames";
+import { css, cx, keyframes } from "@emotion/css";
 import { colors } from "styles";
 
 const bounce = keyframes`
@@ -50,8 +49,8 @@ const Skelton = ({ isLoaderShow = false, customClassName = "" }) => {
     <div
       className={
         isLoaderShow
-          ? clx(style.loader, style.loaderShow, customClassName)
-          : clx(style.loader, customClassName)
+          ? cx(style.loader, style.loaderShow, customClassName)
+          : cx(style.loader, customClassName)
       }
     >
       <div className={style.circle}></div>

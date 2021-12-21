@@ -3,8 +3,8 @@ import colors from "./colors";
 const button = {
   root: {
     height: "48px",
-    minWidth: "100px",
-    borderRadius: "40px",
+    minWidth: "60px",
+    borderRadius: "16px",
     whiteSpace: "nowrap",
     padding: "0 16px",
     fontWeight: 500,
