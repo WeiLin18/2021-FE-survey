@@ -3,6 +3,7 @@ import CountUp from "react-countup";
 import { fetcher } from "utils/common";
 import BaseSection from "./components/BaseSection";
 import CareerSection from "./components/CareerSection";
+import AdviceSection from "./components/AdviceSection";
 import style from "./index.style";
 
 const HomePage = ({ data }) => {
@@ -19,6 +20,7 @@ const HomePage = ({ data }) => {
       </Box>
       <BaseSection {...data?.baseSection} />
       <CareerSection {...data?.careerSection} />
+      <AdviceSection {...data?.adviceSection} />
     </Box>
   );
 };
@@ -48,6 +50,9 @@ export const getStaticProps = async () => {
     const industryData = await fetcher(
       `${process.env.MONGODB_API_URL}/api/surveys/company/industries`
     );
+    const skillData = await fetcher(
+      `${process.env.MONGODB_API_URL}/api/surveys/skills`
+    );
     return {
       props: {
         data: {
@@ -61,6 +66,9 @@ export const getStaticProps = async () => {
           careerSection: {
             workData,
             industryData,
+          },
+          adviceSection: {
+            skillData,
           },
         },
       },

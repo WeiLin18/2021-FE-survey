@@ -1,4 +1,4 @@
-import { Grid, Card, Typography, Box, colors } from "@material-ui/core";
+import { Grid, Card, Typography, Box } from "@material-ui/core";
 
 import BarChart from "components/BarChart";
 import StackBarChart from "components/StackBarChart";
