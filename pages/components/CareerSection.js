@@ -11,6 +11,7 @@ import PieChart from "components/PieChart";
 import DropDownButton from "components/DropDownButton";
 import { getUnitYConfig } from "utils/common";
 import { spacings } from "styles";
+import BarChart from "components/BarChart";
 
 const style = {
   noWrap: css`
@@ -19,10 +20,27 @@ const style = {
     }
   `,
 };
-const CareerSection = ({ workData, industryData, ...props }) => {
+const CareerSection = ({ workData, industryData, scaleData, ...props }) => {
   return (
     <Grid container spacing={1} {...props}>
-      <Grid item md={4} sm={6} xs={12}>
+      <Grid item md={9} sm={6} xs={12}>
+        <Card>
+          <Typography variant="h5">公司規模人數</Typography>
+          <Box sx={{ mt: 2 }}>
+            <Sub.ScaleBar scaleData={scaleData} />
+          </Box>
+        </Card>
+      </Grid>
+      <Grid item md={3} sm={6} xs={12}>
+        <Card>
+          <Typography variant="h5">辦公型態</Typography>
+          <Box sx={{ mt: 2 }}>
+            <Sub.WorkPie workData={workData} />
+          </Box>
+        </Card>
+      </Grid>
+
+      <Grid item sm={6} xs={12}>
         <Card>
           <Typography variant="h5">產業分布</Typography>
           <Box sx={{ mt: 2 }}>
@@ -32,19 +50,12 @@ const CareerSection = ({ workData, industryData, ...props }) => {
           </Box>
         </Card>
       </Grid>
-      <Grid item md={4} sm={6} xs={12}>
+      <Grid item sm={6} xs={12}>
         <Card style={{ height: 380 }}>
           <Sub.IndustryList industryListData={industryData?.data} />
         </Card>
       </Grid>
-      <Grid item md={4} sm={6} xs={12}>
-        <Card>
-          <Typography variant="h5">辦公型態</Typography>
-          <Box sx={{ mt: 2 }}>
-            <Sub.WorkPie workData={workData} />
-          </Box>
-        </Card>
-      </Grid>
+
       <Grid item xs={12}>
         <Sub.SalaryInteractiveCard />
       </Grid>
@@ -70,6 +81,22 @@ const Sub = {
       ],
     };
     return <PieChart data={workData} config={config} />;
+  },
+  ScaleBar: ({ scaleData }) => {
+    const optionConfig = { scales: { y: getUnitYConfig("人") } };
+    const config = {
+      labels: scaleData.map((v) => v._id),
+      datasets: [
+        {
+          label: "scale",
+          data: scaleData.map((v) => v.count),
+          backgroundColor: COLORS_LIST,
+        },
+      ],
+    };
+    return (
+      <BarChart data={scaleData} config={config} optionConfig={optionConfig} />
+    );
   },
   IndustryDoughnut: ({ industryChartData }) => {
     const config = {

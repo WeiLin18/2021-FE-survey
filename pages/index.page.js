@@ -50,6 +50,9 @@ export const getStaticProps = async () => {
     const industryData = await fetcher(
       `${process.env.MONGODB_API_URL}/api/surveys/company/industries`
     );
+    const scaleData = await fetcher(
+      `${process.env.MONGODB_API_URL}/api/surveys/company/scales`
+    );
     const skillData = await fetcher(
       `${process.env.MONGODB_API_URL}/api/surveys/skills`
     );
@@ -66,6 +69,7 @@ export const getStaticProps = async () => {
           careerSection: {
             workData,
             industryData,
+            scaleData,
           },
           adviceSection: {
             skillData,
