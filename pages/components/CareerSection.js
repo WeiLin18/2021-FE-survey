@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { Grid, Card, Typography, Box, Button } from "@material-ui/core";
+import { css } from "@emotion/css";
 import useSWR from "swr";
 
 import { COLORS_LIST } from "constants/chart";
@@ -12,6 +13,13 @@ import DropDownButton from "components/DropDownButton";
 import { getUnitYConfig } from "utils/common";
 import { spacings } from "styles";
 
+const style = {
+  noWrap: css`
+    && {
+      white-space: nowrap;
+    }
+  `,
+};
 const CareerSection = ({ workData, industryData, ...props }) => {
   return (
     <Grid container spacing={1} {...props}>
@@ -109,8 +117,10 @@ const Sub = {
             justifyContent: "space-between",
           }}
         >
-          <Typography variant="h5">產業排名</Typography>
-          <Box>
+          <Typography variant="h5" className={style.noWrap}>
+            產業排名
+          </Typography>
+          <Box className={style.noWrap}>
             <Button
               variant="outlined"
               onClick={() => {

@@ -1,4 +1,4 @@
-import { Grid, Card, Typography, Box } from "@material-ui/core";
+import { Grid, Card, Typography, Box, colors } from "@material-ui/core";
 
 import BarChart from "components/BarChart";
 import StackBarChart from "components/StackBarChart";
@@ -51,7 +51,7 @@ const BaseSection = ({
     </Grid>
     <Grid item xs={12}>
       <Card>
-        <Typography variant="h5">年資</Typography>
+        <Typography variant="h5">年資 & 平均年薪</Typography>
         <Box sx={{ mt: 2 }}>
           <Sub.JobTenureBar jobTenureData={jobTenureData} />
         </Box>
@@ -126,7 +126,17 @@ const Sub = {
         {
           label: "年資",
           data: jobTenureData.map((v) => v.count),
-          backgroundColor: COLORS_LIST,
+          backgroundColor: COLORS_LIST[3],
+          order: 1,
+        },
+        {
+          label: "平均年薪(萬)",
+          type: "line",
+          data: jobTenureData.map((v) => v.averageSalary),
+          backgroundColor: COLORS_LIST[1],
+          borderColor: COLORS_LIST[1],
+          borderDash: [5, 5],
+          order: 0,
         },
       ],
     };
