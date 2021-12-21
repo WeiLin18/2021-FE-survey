@@ -43,6 +43,8 @@ handler.get(async (req, res) => {
   ]);
   await db.disconnect();
 
+  /**@TODO use $avg */
+
   const formatGroups = groups.map((item) =>
     item?._id
       ? {
