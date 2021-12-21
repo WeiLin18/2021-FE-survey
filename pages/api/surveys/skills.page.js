@@ -54,7 +54,7 @@ handler.get(async (req, res) => {
     }, [])
     .sort((a, b) => b.value - a.value);
 
-  res.send(finalData);
+  res.send({ data: finalData, length: groups.length });
 });
 
 export default handler;

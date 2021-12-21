@@ -5,7 +5,6 @@ import useSWR from "swr";
 
 import { COLORS_LIST } from "constants/chart";
 import { AGE_LIST, DISPLAY_INDUSTRY_LIST } from "constants/survey";
-import BarChart from "components/BarChart";
 import DoughnutChart from "components/DoughnutChart";
 import StackBarChart from "components/StackBarChart";
 import PieChart from "components/PieChart";

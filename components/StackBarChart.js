@@ -9,6 +9,7 @@ const StackBarChart = ({
   height = chartHeight,
   data,
   isHorizontal = false,
+  xConfig = {},
   yConfig = {},
   ...props
 }) => {
@@ -30,6 +31,7 @@ const StackBarChart = ({
             scales: {
               x: {
                 stacked: true,
+                ...xConfig,
               },
               y: {
                 stacked: true,
