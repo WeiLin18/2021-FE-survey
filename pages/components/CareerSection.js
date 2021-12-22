@@ -40,7 +40,7 @@ const CareerSection = ({ workData, industryData, scaleData, ...props }) => {
         </Card>
       </Grid>
 
-      <Grid item sm={6} xs={12}>
+      <Grid item sm={6} xs={12} id="industry">
         <Card>
           <Typography variant="h5">產業分布</Typography>
           <Box sx={{ mt: 2 }}>

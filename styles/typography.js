@@ -4,6 +4,11 @@ export const bodyFontStyle = {
 };
 
 const typography = {
+  h3: {
+    ...bodyFontStyle,
+    fontSize: "40px",
+    fontWeight: 700,
+  },
   h4: {
     ...bodyFontStyle,
     fontSize: "28px",

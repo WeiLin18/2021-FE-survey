@@ -4,24 +4,28 @@ import { fetcher } from "utils/common";
 import BaseSection from "./components/BaseSection";
 import CareerSection from "./components/CareerSection";
 import AdviceSection from "./components/AdviceSection";
+import AppBar from "components/AppBar";
 // import style from "./index.style";
 
 const HomePage = ({ data }) => {
   return (
-    <Box sx={{ px: 5, maxWidth: 1200, mx: "auto" }} component="main">
-      <Box sx={{ p: 10 }} component="header">
-        <Typography variant="h3" align="center" component="h2">
-          2021 FE問卷調查報告
-        </Typography>
-        <Typography variant="h5" align="center">
-          本問卷共累積{" "}
-          <CountUp start={0} end={481} duration={2.5} separator="," /> 份
-        </Typography>
+    <>
+      <AppBar />
+      <Box
+        sx={{ px: 5, maxWidth: 1200, mx: "auto", pt: "60px" }}
+        component="main"
+      >
+        <Box sx={{ p: 10 }} component="header">
+          <Typography variant="h5" align="center">
+            本問卷共累積{" "}
+            <CountUp start={0} end={481} duration={2.5} separator="," /> 份
+          </Typography>
+        </Box>
+        <BaseSection {...data?.baseSection} />
+        <CareerSection {...data?.careerSection} />
+        <AdviceSection {...data?.adviceSection} />
       </Box>
-      <BaseSection {...data?.baseSection} />
-      <CareerSection {...data?.careerSection} />
-      <AdviceSection {...data?.adviceSection} />
-    </Box>
+    </>
   );
 };
 

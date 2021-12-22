@@ -25,7 +25,7 @@ const style = {
 };
 const AdviceSection = ({ skillData, ...props }) => (
   <Grid container spacing={2} component="section" {...props}>
-    <Grid item xs={12}>
+    <Grid item xs={12} id="skill">
       <Card>
         <Typography variant="h5">導入技術</Typography>
         <Box sx={{ mt: 2 }} className={style.cloud}>

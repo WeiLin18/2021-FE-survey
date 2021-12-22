@@ -17,7 +17,7 @@ const BaseSection = ({
   ...props
 }) => (
   <Grid container spacing={2} component="section" {...props}>
-    <Grid item md={6} sm={12} xs={12}>
+    <Grid item md={6} sm={12} xs={12} id="base">
       <Card>
         <Typography variant="h5">地區</Typography>
         <Box sx={{ mt: 2 }}>
@@ -49,7 +49,7 @@ const BaseSection = ({
         </Box>
       </Card>
     </Grid>
-    <Grid item xs={12}>
+    <Grid item xs={12} id="company">
       <Card>
         <Typography variant="h5">年資 & 平均年薪</Typography>
         <Box sx={{ mt: 2 }}>
