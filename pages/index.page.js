@@ -4,7 +4,7 @@ import { fetcher } from "utils/common";
 import BaseSection from "./components/BaseSection";
 import CareerSection from "./components/CareerSection";
 import AdviceSection from "./components/AdviceSection";
-import style from "./index.style";
+// import style from "./index.style";
 
 const HomePage = ({ data }) => {
   return (

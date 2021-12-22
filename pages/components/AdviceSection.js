@@ -74,8 +74,6 @@ const Sub = {
     );
   },
   SkillBar: ({ skillData, length }) => {
-    if (!skillData) return null;
-
     const xConfig = useMemo(
       () => ({
         max: 100,
@@ -87,6 +85,9 @@ const Sub = {
       }),
       []
     );
+
+    if (!skillData) return null;
+
     const top5Data = skillData.slice(0, 5);
     const data = {
       labels: top5Data.map((v) => v.text),
