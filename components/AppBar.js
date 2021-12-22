@@ -1,7 +1,15 @@
 import React from "react";
 import { css } from "@emotion/css";
-import { AppBar as MuiAppBar, Box, Typography } from "@material-ui/core";
-import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
+import {
+  AppBar as MuiAppBar,
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
+} from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
+import { Link as ScrollLink } from "react-scroll";
 import { colors } from "styles";
 
 const menuItems = [
@@ -42,6 +50,16 @@ const style = {
       line-height: 1;
     }
   `,
+  menu: css`
+    && ul {
+      background: ${colors.textDefault};
+    }
+  `,
+  menuItem: css`
+    && {
+      background: ${colors.textDefault};
+    }
+  `,
   link: css`
     && {
       border: 1px solid #fff;
@@ -63,6 +81,16 @@ const style = {
 };
 
 const AppBar = () => {
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
   return (
     <MuiAppBar className={style.root}>
       <Box>
@@ -77,7 +105,11 @@ const AppBar = () => {
           2021 Frontend Engineer Survey
         </Typography>
       </Box>
-      <Box>
+      <Box
+        sx={{
+          display: { xs: "none", md: "block" },
+        }}
+      >
         {menuItems.map(({ path, label }, i) => (
           <ScrollLink
             activeClass="active"
@@ -92,6 +124,65 @@ const AppBar = () => {
             {label}
           </ScrollLink>
         ))}
+      </Box>
+      <Box
+        sx={{
+          display: { xs: "block", md: "none" },
+        }}
+      >
+        <IconButton
+          size="medium"
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={handleOpenNavMenu}
+          color="inherit"
+        >
+          <MenuIcon />
+        </IconButton>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorElNav}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          open={Boolean(anchorElNav)}
+          onClose={handleCloseNavMenu}
+          sx={{
+            display: {
+              xs: "block",
+              md: "none",
+            },
+          }}
+          className={style.menu}
+        >
+          {menuItems.map(({ path, label }, i) => (
+            <MenuItem
+              key={i}
+              onClick={handleCloseNavMenu}
+              className={style.menuItem}
+            >
+              <ScrollLink
+                activeClass="active"
+                className={style.link}
+                to={path}
+                spy={true}
+                smooth={true}
+                offset={-70}
+                duration={500}
+                key={i}
+              >
+                {label}
+              </ScrollLink>
+            </MenuItem>
+          ))}
+        </Menu>
       </Box>
     </MuiAppBar>
   );

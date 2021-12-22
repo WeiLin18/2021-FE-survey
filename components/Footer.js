@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Link, Typography } from "@material-ui/core";
 import { css } from "@emotion/css";
 
-import { colors } from "styles";
+import { breakpoints, colors } from "styles";
 
 const style = {
   root: css`
@@ -11,15 +11,26 @@ const style = {
     background: ${colors.textDefault};
     display: flex;
     justify-content: center;
+    @media (max-width: ${breakpoints.phone}) {
+      height: 140px;
+      padding-bottom: 40px;
+    }
   `,
   text: css`
     color: #fff;
+    @media (max-width: ${breakpoints.phone}) {
+      display: flex;
+      flex-direction: column;
+    }
   `,
   license: css`
     color: #fff;
     width: 100%;
     display: inline-block;
     text-align: center;
+    @media (max-width: ${breakpoints.phone}) {
+      text-align: start;
+    }
   `,
 };
 
