@@ -5,6 +5,7 @@ import BaseSection from "./components/BaseSection";
 import CareerSection from "./components/CareerSection";
 import AdviceSection from "./components/AdviceSection";
 import AppBar from "components/AppBar";
+import Footer from "components/Footer";
 // import style from "./index.style";
 
 const HomePage = ({ data }) => {
@@ -12,7 +13,7 @@ const HomePage = ({ data }) => {
     <>
       <AppBar />
       <Box
-        sx={{ px: 5, maxWidth: 1200, mx: "auto", pt: "60px" }}
+        sx={{ px: 5, maxWidth: 1200, mx: "auto", pt: "80px", pb: "40px" }}
         component="main"
       >
         <Box sx={{ p: 10 }} component="header">
@@ -25,6 +26,7 @@ const HomePage = ({ data }) => {
         <CareerSection {...data?.careerSection} />
         <AdviceSection {...data?.adviceSection} />
       </Box>
+      <Footer />
     </>
   );
 };
