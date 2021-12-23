@@ -1,9 +1,9 @@
 import { Box, Typography } from "@material-ui/core";
 import CountUp from "react-countup";
 import { fetcher } from "utils/common";
-// import BaseSection from "./components/BaseSection";
-// import CareerSection from "./components/CareerSection";
-// import AdviceSection from "./components/AdviceSection";
+import BaseSection from "./components/BaseSection";
+import CareerSection from "./components/CareerSection";
+import AdviceSection from "./components/AdviceSection";
 import AppBar from "components/AppBar";
 import Footer from "components/Footer";
 
@@ -21,9 +21,9 @@ const HomePage = ({ data }) => {
             <CountUp start={0} end={481} duration={2.5} separator="," /> 份
           </Typography>
         </Box>
-        {/* <BaseSection {...data?.baseSection} />
+        <BaseSection {...data?.baseSection} />
         <CareerSection {...data?.careerSection} />
-        <AdviceSection {...data?.adviceSection} /> */}
+        <AdviceSection {...data?.adviceSection} />
       </Box>
       <Footer />
     </>
@@ -32,59 +32,59 @@ const HomePage = ({ data }) => {
 
 export default HomePage;
 
-// export const getStaticProps = async () => {
-//   try {
-//     const ageData = await fetcher(
-//       `${process.env.MONGODB_API_URL}/api/surveys/ages`
-//     );
-//     const genderData = await fetcher(
-//       `${process.env.MONGODB_API_URL}/api/surveys/genders`
-//     );
-//     const majorData = await fetcher(
-//       `${process.env.MONGODB_API_URL}/api/surveys/majors`
-//     );
-//     const areaData = await fetcher(
-//       `${process.env.MONGODB_API_URL}/api/surveys/company/areas`
-//     );
-//     const jobTenureData = await fetcher(
-//       `${process.env.MONGODB_API_URL}/api/surveys/company/job_tenures`
-//     );
-//     const workData = await fetcher(
-//       `${process.env.MONGODB_API_URL}/api/surveys/company/works`
-//     );
-//     const industryData = await fetcher(
-//       `${process.env.MONGODB_API_URL}/api/surveys/company/industries`
-//     );
-//     const scaleData = await fetcher(
-//       `${process.env.MONGODB_API_URL}/api/surveys/company/scales`
-//     );
-//     const skillData = await fetcher(
-//       `${process.env.MONGODB_API_URL}/api/surveys/skills`
-//     );
-//     return {
-//       props: {
-//         data: {
-//           baseSection: {
-//             ageData,
-//             genderData,
-//             majorData,
-//             areaData,
-//             jobTenureData,
-//           },
-//           careerSection: {
-//             workData,
-//             industryData,
-//             scaleData,
-//           },
-//           adviceSection: {
-//             skillData,
-//           },
-//         },
-//       },
-//       revalidate: 60 * 10,
-//     };
-//   } catch (error) {
-//     // eslint-disable-next-line no-console
-//     console.log(error);
-//   }
-// };
+export const getStaticProps = async () => {
+  try {
+    const ageData = await fetcher(
+      `${process.env.MONGODB_API_URL}/api/surveys/ages`
+    );
+    const genderData = await fetcher(
+      `${process.env.MONGODB_API_URL}/api/surveys/genders`
+    );
+    const majorData = await fetcher(
+      `${process.env.MONGODB_API_URL}/api/surveys/majors`
+    );
+    const areaData = await fetcher(
+      `${process.env.MONGODB_API_URL}/api/surveys/company/areas`
+    );
+    const jobTenureData = await fetcher(
+      `${process.env.MONGODB_API_URL}/api/surveys/company/job_tenures`
+    );
+    const workData = await fetcher(
+      `${process.env.MONGODB_API_URL}/api/surveys/company/works`
+    );
+    const industryData = await fetcher(
+      `${process.env.MONGODB_API_URL}/api/surveys/company/industries`
+    );
+    const scaleData = await fetcher(
+      `${process.env.MONGODB_API_URL}/api/surveys/company/scales`
+    );
+    const skillData = await fetcher(
+      `${process.env.MONGODB_API_URL}/api/surveys/skills`
+    );
+    return {
+      props: {
+        data: {
+          baseSection: {
+            ageData,
+            genderData,
+            majorData,
+            areaData,
+            jobTenureData,
+          },
+          careerSection: {
+            workData,
+            industryData,
+            scaleData,
+          },
+          adviceSection: {
+            skillData,
+          },
+        },
+      },
+      revalidate: 60 * 10,
+    };
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+  }
+};
