@@ -1,4 +1,5 @@
 import nc from "next-connect";
+import NextCors from "nextjs-cors";
 import Surveys from "models/Surveys";
 import db from "utils/db";
 import { SALARY_LIST } from "constants/survey";
@@ -7,6 +8,12 @@ import { getFormatIndustryGroup } from "utils/common";
 const handler = nc();
 
 handler.get(async (req, res) => {
+  await NextCors(req, res, {
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200,
+  });
+
   const { ageRange } = req.query; //21~25 歲
   const formatAgeRange = decodeURIComponent(ageRange);
   const filterAgeRange = formatAgeRange === "all" ? "" : formatAgeRange;
