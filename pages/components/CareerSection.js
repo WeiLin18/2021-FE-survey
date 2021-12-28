@@ -207,7 +207,7 @@ const Sub = {
     const { data: salaryData, error } = useSWR(
       ageRangeValue
         ? [
-            `${process.env.MONGODB_API_URL}/api/surveys/company/salary/`,
+            `${process.env.MONGODB_API_URL_CLIENT}/api/surveys/company/salary/`,
             encodeURIComponent(ageRangeValue),
           ]
         : null,
