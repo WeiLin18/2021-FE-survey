@@ -1,5 +1,12 @@
-import { useCallback, useMemo, useState } from "react";
-import { Grid, Card, Typography, Box, Button } from "@material-ui/core";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  Grid,
+  Card,
+  Typography,
+  Box,
+  Button,
+  CircularProgress,
+} from "@material-ui/core";
 import { css } from "@emotion/css";
 import useSWR from "swr";
 
@@ -12,11 +19,20 @@ import DropDownButton from "components/DropDownButton";
 import { getUnitYConfig } from "utils/common";
 import { spacings } from "styles";
 import BarChart from "components/BarChart";
+import { mockSalaryData } from "utils/helper";
 
 const style = {
   noWrap: css`
     && {
       white-space: nowrap;
+    }
+  `,
+  progress: css`
+    && {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      z-index: 1050;
     }
   `,
 };
@@ -174,8 +190,25 @@ const Sub = {
   },
   SalaryInteractiveCard: () => {
     const [ageRange, setAgeRange] = useState(ageList[0]);
-
     const ageRangeValue = useMemo(() => ageRange?.value, [ageRange?.value]);
+
+    const { data: salaryData, error } = useSWR(
+      ageRangeValue
+        ? [
+            `${process.env.MONGODB_API_URL_CLIENT}/api/surveys/company/salary/`,
+            encodeURIComponent(ageRangeValue),
+          ]
+        : null,
+      (url, query) => fetch(url + query).then((r) => r.json())
+    );
+
+    const prevSalaryData = useRef(null);
+
+    useEffect(() => {
+      if (salaryData) {
+        prevSalaryData.current = salaryData;
+      }
+    }, [salaryData]);
 
     return (
       <Card>
@@ -198,22 +231,22 @@ const Sub = {
           />
         </Box>
         <Box sx={{ mt: 2 }}>
-          <Sub.SalaryStackBar ageRangeValue={ageRangeValue} />
+          <Sub.SalaryStackBar
+            ageRangeValue={ageRangeValue}
+            salaryData={salaryData || prevSalaryData?.current}
+            error={error}
+            isLoading={!salaryData}
+          />
         </Box>
       </Card>
     );
   },
-  SalaryStackBar: ({ ageRangeValue }) => {
-    const { data: salaryData, error } = useSWR(
-      ageRangeValue
-        ? [
-            `${process.env.MONGODB_API_URL_CLIENT}/api/surveys/company/salary/`,
-            encodeURIComponent(ageRangeValue),
-          ]
-        : null,
-      (url, query) => fetch(url + query).then((r) => r.json())
-    );
-
+  SalaryStackBar: ({
+    salaryData = mockSalaryData,
+    error,
+    ageRangeValue,
+    isLoading,
+  }) => {
     const isSalaryData = salaryData?.length > 0;
 
     const labels = isSalaryData
@@ -240,11 +273,23 @@ const Sub = {
       [ageRangeValue]
     );
 
+    const prevYConfig = useRef(null);
+
+    useEffect(() => {
+      if (yConfig && !isLoading) {
+        prevYConfig.current = yConfig;
+      }
+    }, [yConfig, isLoading]);
+
     return (
-      <Box sx={{ height: 300 }}>
+      <Box sx={{ height: 300, position: "relative" }}>
+        {isLoading && <CircularProgress className={style.progress} />}
         {error && <Typography align="center">server is busy...</Typography>}
         {salaryData && (
-          <StackBarChart data={{ labels, datasets }} yConfig={yConfig} />
+          <StackBarChart
+            data={{ labels, datasets }}
+            yConfig={isLoading && salaryData ? prevYConfig?.current : yConfig}
+          />
         )}
       </Box>
     );
