@@ -1,3 +1,8 @@
+## <small>0.1.1 (2021-12-28)</small>
+
+* feat: add loading progress for salaryChart ([8ca828f](https://github.com/WeiLin18/2021-FE-survey/commit/8ca828f))
+
+
 ## 0.1.0 (2021-12-22)
 
 * fix: adjust button and dropdownButton style ([da9d09e](https://github.com/WeiLin18/2021-FE-survey/commit/da9d09e))
