@@ -1,4 +1,5 @@
 import { ServerStyleSheets } from "@material-ui/core/styles";
+import themeConfig from "configs/theme";
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import React from "react";
 export default class MyDocument extends Document {
@@ -7,6 +8,14 @@ export default class MyDocument extends Document {
       <Html lang="zh-TW">
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <meta charSet="utf-8" />
+          {/* Use minimum-scale=1 to enable GPU rasterization */}
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+          />
+          {/* PWA primary color */}
+          <meta name="theme-color" content={themeConfig.palette.primary.main} />
           <link
             rel="preconnect"
             href="https://fonts.gstatic.com"
